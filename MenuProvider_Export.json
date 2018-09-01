@@ -1,0 +1,348 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0",
+    "importType": "LEX",
+    "importFormat": "JSON"
+  },
+  "resource": {
+    "name": "MenuProvider",
+    "version": "11",
+    "intents": [
+      {
+        "name": "MenuProvide",
+        "version": "20",
+        "fulfillmentActivity": {
+          "type": "CodeHook",
+          "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:036330535813:function:RecommendRecipes",
+            "messageVersion": "1.0"
+          }
+        },
+        "sampleUtterances": [
+          "I would like to cook a meal.",
+          "cook a meal",
+          "meal"
+        ],
+        "slots": [
+          {
+            "name": "IngredientType",
+            "slotConstraint": "Required",
+            "slotType": "IngredientType",
+            "slotTypeVersion": "2",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "What do you want to have in the meal?"
+                }
+              ],
+              "maxAttempts": 2,
+              "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"https://www.mirrormedia.com.tw/assets/images/20170825102642-c2a7e6b5a4676dc0ed483cee8c2be9b5-tablet.jpg\",\"subTitle\":\"You can also type Seafood for ingredients\",\"title\":\"Ingredients\",\"buttons\":[{\"text\":\"Egg\",\"value\":\"Egg\"},{\"text\":\"Veg\",\"value\":\"Veg\"},{\"text\":\"Meat\",\"value\":\"Meat\"},{\"text\":\"Seafood\",\"value\":\"Seafood\"}]}]}"
+            },
+            "priority": 2,
+            "sampleUtterances": []
+          },
+          {
+            "name": "MealType",
+            "slotConstraint": "Required",
+            "slotType": "MealType",
+            "slotTypeVersion": "1",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "What meal do you want to cook?"
+                }
+              ],
+              "maxAttempts": 2,
+              "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"https://www.whole-sisters.com/wp-content/uploads/2017/03/Breakfast-Toast.jpg\",\"subTitle\":\"MealType\",\"title\":\"MealType\",\"buttons\":[{\"text\":\"Breakfast\",\"value\":\"Breakfast\"},{\"text\":\"Lunch\",\"value\":\"Lunch\"},{\"text\":\"Dinner\",\"value\":\"Dinner\"}]}]}"
+            },
+            "priority": 1,
+            "sampleUtterances": [
+              "I would like to cook {MealType}"
+            ]
+          }
+        ],
+        "dialogCodeHook": {
+          "uri": "arn:aws:lambda:us-east-1:036330535813:function:RecommendRecipes",
+          "messageVersion": "1.0"
+        }
+      },
+      {
+        "name": "ThankYou",
+        "version": "3",
+        "fulfillmentActivity": {
+          "type": "ReturnIntent"
+        },
+        "sampleUtterances": [
+          "Thanks",
+          "Thank you",
+          "great"
+        ],
+        "slots": [],
+        "followUpPrompt": {
+          "prompt": {
+            "messages": [
+              {
+                "contentType": "PlainText",
+                "content": "You're welcome. Is there anything else I can help with?"
+              },
+              {
+                "contentType": "PlainText",
+                "content": "You're welcome. Is there anything else I can do ?"
+              }
+            ],
+            "maxAttempts": 3
+          },
+          "rejectionStatement": {
+            "messages": [
+              {
+                "contentType": "PlainText",
+                "content": "Thank you! Have a nice meal!"
+              },
+              {
+                "contentType": "PlainText",
+                "content": "Thanks! Have a nice meal!"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "name": "Greetings",
+        "version": "8",
+        "fulfillmentActivity": {
+          "type": "CodeHook",
+          "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:036330535813:function:GreetingLex",
+            "messageVersion": "1.0"
+          }
+        },
+        "sampleUtterances": [
+          "Hi",
+          "Hello",
+          "hey"
+        ],
+        "slots": [
+          {
+            "name": "Name",
+            "slotConstraint": "Required",
+            "slotType": "AMAZON.US_FIRST_NAME",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "What’s your name?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 1,
+            "sampleUtterances": []
+          }
+        ]
+      },
+      {
+        "name": "PreferenceCheck",
+        "version": "12",
+        "fulfillmentActivity": {
+          "type": "CodeHook",
+          "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:036330535813:function:CuisineRecommend",
+            "messageVersion": "1.0"
+          }
+        },
+        "sampleUtterances": [
+          "ew",
+          "yuck"
+        ],
+        "slots": [
+          {
+            "name": "CuisineType",
+            "slotConstraint": "Optional",
+            "slotType": "CuisineType",
+            "slotTypeVersion": "4",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "dfgh?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 1,
+            "sampleUtterances": []
+          },
+          {
+            "name": "IngredientType",
+            "slotConstraint": "Optional",
+            "slotType": "IngredientType",
+            "slotTypeVersion": "2",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "wsedfgh?"
+                }
+              ],
+              "maxAttempts": 2
+            },
+            "priority": 2,
+            "sampleUtterances": []
+          }
+        ],
+        "dialogCodeHook": {
+          "uri": "arn:aws:lambda:us-east-1:036330535813:function:CuisineRecommend",
+          "messageVersion": "1.0"
+        }
+      },
+      {
+        "name": "CuisineProvide",
+        "version": "30",
+        "fulfillmentActivity": {
+          "type": "CodeHook",
+          "codeHook": {
+            "uri": "arn:aws:lambda:us-east-1:036330535813:function:CuisineRecommend",
+            "messageVersion": "1.0"
+          }
+        },
+        "sampleUtterances": [
+          "cook a cuisine",
+          "I would like to cook a cuisine.",
+          "cuisine"
+        ],
+        "slots": [
+          {
+            "name": "CuisineType",
+            "slotConstraint": "Required",
+            "slotType": "CuisineType",
+            "slotTypeVersion": "4",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "What cuisine do you want to have?"
+                }
+              ],
+              "maxAttempts": 2,
+              "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"https://www.wearegurgaon.com/wp-content/uploads/2017/11/best-italian-restaurants-in-gurgaon-2.jpg\",\"subTitle\":\"You can also type Thai and Spanish\",\"title\":\"Cuisine\",\"buttons\":[{\"text\":\"Italian\",\"value\":\"Italian\"},{\"text\":\"Korean\",\"value\":\"Korean\"},{\"text\":\"Japanese\",\"value\":\"Japanese\"},{\"text\":\"Spanish\",\"value\":\"Spanish\"},{\"text\":\"Thai\",\"value\":\"Thai\"}]}]}"
+            },
+            "priority": 2,
+            "sampleUtterances": []
+          },
+          {
+            "name": "IngredientType",
+            "slotConstraint": "Required",
+            "slotType": "IngredientType",
+            "slotTypeVersion": "2",
+            "valueElicitationPrompt": {
+              "messages": [
+                {
+                  "contentType": "PlainText",
+                  "content": "What ingredients do you want to have in the meal?"
+                }
+              ],
+              "maxAttempts": 2,
+              "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\",\"genericAttachments\":[{\"imageUrl\":\"https://www.mirrormedia.com.tw/assets/images/20170825102642-c2a7e6b5a4676dc0ed483cee8c2be9b5-tablet.jpg\",\"subTitle\":\"You can also type Seafood for ingredients\",\"title\":\"Ingredients\",\"buttons\":[{\"text\":\"Egg\",\"value\":\"Egg\"},{\"text\":\"Veg\",\"value\":\"Veg\"},{\"text\":\"Meat\",\"value\":\"Meat\"},{\"text\":\"Seafood\",\"value\":\"Seafood\"}]}]}"
+            },
+            "priority": 3,
+            "sampleUtterances": []
+          }
+        ],
+        "dialogCodeHook": {
+          "uri": "arn:aws:lambda:us-east-1:036330535813:function:CuisineRecommend",
+          "messageVersion": "1.0"
+        }
+      }
+    ],
+    "slotTypes": [
+      {
+        "name": "CuisineType",
+        "version": "4",
+        "enumerationValues": [
+          {
+            "value": "Italian"
+          },
+          {
+            "value": "Korean"
+          },
+          {
+            "value": "Spanish"
+          },
+          {
+            "value": "Thai"
+          },
+          {
+            "value": "Japanese"
+          }
+        ],
+        "valueSelectionStrategy": "ORIGINAL_VALUE"
+      },
+      {
+        "description": "Meal",
+        "name": "MealType",
+        "version": "1",
+        "enumerationValues": [
+          {
+            "value": "Breakfast",
+            "synonyms": []
+          },
+          {
+            "value": "Dinner",
+            "synonyms": []
+          },
+          {
+            "value": "Dessert",
+            "synonyms": []
+          },
+          {
+            "value": "Lunch",
+            "synonyms": []
+          }
+        ],
+        "valueSelectionStrategy": "ORIGINAL_VALUE"
+      },
+      {
+        "name": "IngredientType",
+        "version": "2",
+        "enumerationValues": [
+          {
+            "value": "Egg"
+          },
+          {
+            "value": "Seafood"
+          },
+          {
+            "value": "Veg"
+          },
+          {
+            "value": "Meat"
+          }
+        ],
+        "valueSelectionStrategy": "ORIGINAL_VALUE"
+      }
+    ],
+    "voiceId": "Kimberly",
+    "childDirected": false,
+    "locale": "en-US",
+    "idleSessionTTLInSeconds": 300,
+    "clarificationPrompt": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, can you please repeat that?"
+        }
+      ],
+      "maxAttempts": 5
+    },
+    "abortStatement": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, I could not understand. Goodbye."
+        }
+      ]
+    }
+  }
+}
